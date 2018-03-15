@@ -1,0 +1,173 @@
+ <!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="Myapp" ng-controller='mycontroller'>
+  <table>
+  	<tr ng-repeat='y in rows'> 
+  		<td ng-repeat='x in colomns' ng-click="placevalue(y,x)" class='td-{{ y }}-{{ x }}'>{{ value }}</td>
+  	</tr>
+  </table>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	var app = angular.module("Myapp",[]);
+	app.controller("mycontroller",function($scope){
+		$scope.rows = [1,2,3];
+		$scope.colomns = [1,2,3];
+		$scope.count = 0;
+		$scope.value = '-';
+		 $scope.placevalue = function(y,x) {
+			var eventclass = '.td-'+y+'-'+x;
+		 	var myEl = angular.element( document.querySelector( eventclass) );
+			var eventval = myEl.text();
+
+			var player1 = [];
+			var player2 = [];	
+			var case1 = ['.td-1-1','.td-1-2','.td-1-3'];
+			var case2 = ['.td-2-1','.td-2-2','.td-2-3'];
+			var case3 = ['.td-3-1','.td-3-2','.td-3-3'];
+			var case6 = ['.td-1-1','.td-2-1','.td-3-1'];
+			var case7 = ['.td-1-2','.td-2-2','.td-3-2'];
+			var case8 = ['.td-1-3','.td-2-3','.td-3-3'];
+
+			// diagnols //
+			var case4 = ['.td-1-1','.td-2-2','.td-3-3'];
+			var case5 = ['.td-1-3','.td-2-2','.td-3-1'];
+		
+
+		 	if(eventval == $scope.value){
+				if(($scope.count % 2) === 0){
+				 	myEl.text('X'); //alert("Player2 turn");
+				 	  angular.forEach($scope.rows, function (r_v, r_k) {
+				 		 angular.forEach($scope.colomns, function (c_v, c_k) {
+				 			var tdclass = '.td-'+r_v+'-'+c_v;
+				 			var tdvalEL = angular.element( document.querySelector( tdclass) );
+				 			var tdval = tdvalEL.text();
+					 			if(tdval == 'X'){
+					 				player1.push(tdclass);
+
+					 			}
+							})
+				 		})	
+
+			 	    if(getIntersect(case1,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case2,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case3,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case4,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case5,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case6,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case7,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }else if(getIntersect(case8,player1) == 3){
+			 	    	alert("Player1 win");
+			 	    	window.location = window.location.href;
+			 	    }
+
+		
+				}else{
+				  	myEl.text('O'); //alert("Player1 turn");
+				  	angular.forEach($scope.rows, function (r_v, r_k) {
+				 		 angular.forEach($scope.colomns, function (c_v, c_k) {
+				 			var tdclass = '.td-'+r_v+'-'+c_v;
+				 			var tdvalEL = angular.element( document.querySelector( tdclass) );
+				 			var tdval = tdvalEL.text();
+				 			if(tdval == 'O'){
+				 				player2.push(tdclass);
+				 			}
+
+				 			})
+				 		})
+
+				 		    if(getIntersect(case1,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case2,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case3,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case4,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case5,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case6,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case7,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }else if(getIntersect(case8,player2) == 3){
+					 	    	alert("player2 win");
+					 	    	window.location = window.location.href;
+					 	    }	
+
+			 	  }
+			 	 $scope.count++;
+			}
+
+				function getIntersect(arr1, arr2) {
+				    var temp = [];
+				    for(var i = 0; i < arr1.length; i++){
+				        for(var k = 0; k < arr2.length; k++){
+				            if(arr1[i] == arr2[k]){
+				                temp.push( arr1[i]);
+				                break;
+				            }
+				        }
+				    }
+				    if(temp.length == 3){
+				    	angular.forEach(temp, function (v, k) {
+				    		angular.element( document.querySelector( v)).addClass('win');
+				    		//angular.element( document.querySelector('table')).css('display','none'); ;
+						})
+				    }
+				    
+				    return temp.length;
+				}
+
+		}
+    })
+</script> 
+
+
+
+<style type="text/css">
+table {
+	width: 20%;
+	margin: 0 auto;
+	top: 60px;
+	position: relative;
+    border-collapse: collapse;
+ }
+
+table, td, th {
+	border: 1px solid black;
+	text-align: center;
+	width: 170px;
+	height: 50px;
+}
+
+.win{
+	border: 3px solid red; 
+}
+</style>
